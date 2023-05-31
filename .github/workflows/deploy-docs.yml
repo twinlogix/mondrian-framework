@@ -18,7 +18,8 @@ jobs:
       - name: Npm install
         run: npm ci
       - name: Git config
-        run: git config --global user.name "twinlogix"
-        run: git config --global user.email "developer@twinlogix.com"
+        run: |
+          git config --global user.name "twinlogix"
+          git config --global user.email "developer@twinlogix.com"
       - name: Docs deploy
         run: npm run deploy-docs
