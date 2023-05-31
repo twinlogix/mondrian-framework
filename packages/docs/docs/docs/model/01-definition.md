@@ -266,22 +266,41 @@ Every element of the union must be named in order to support advanced functional
 
 You can also combine complex types like objects or custom types.
 ```ts showLineNumbers
+const BookType = m.enum(['OLD', 'NEW'])
 
-const Book = m.object({
-  id: m.string(),
-  title: m.string()
-})
-
-const Collection = m.object({
+const OldBook = m.object({
   id: m.string(),
   title: m.string(),
-  books: Book.array(),
+  type: BookType,
+  historicalPeriod: m.string(),
 })
 
-const SearchResult = m.union({ book: Book, collection: Collection })
-```
+const NewBook = m.object({
+  id: m.string(),
+  title: m.string(),
+  type: BookType,
+  publicationDate: m.datetime(),
+})
 
-## Reference
+const SearchResult = m.union({ oldBook: OldBook, newBook: NewBook })
+```
+In the union of two or more objects, it is often useful to specify explicit logic to identify which type of the union a value belongs to. This specification can be defined using the options parameter.
+```ts showLineNumbers
+const SearchResult = m.union(
+  { oldBook: OldBook, newBook: NewBook },
+  {
+    requiredProjection: {
+      oldBook: { type: true },
+      newBook: { type: true },
+    },
+    is: {
+      oldBook: (v) => v.type === 'OLD',
+      newBook: (v) => v.type === 'NEW'
+    }
+  }  
+)
+```
+The `requiredProjection` parameter identifies the necessary [projection](./05-projection.md) for each type of the union in order to have the fields necessary to discriminate one type from another. The `is` functions, on the other hand, implement the logic that defines when a value is of a specific type.
 
 ## Select
 
