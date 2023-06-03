@@ -4,9 +4,9 @@ sidebar_position: 1
 
 # Introduction
 
-Mondrian is a framework for building modular server-side applications ready to evolve. It is primarily a [conceptual framework](./conceptual-framework.md) that encompasses a set of well-defined abstractions for designing a modern, feature-rich backend application with characteristics such as modularity, cohesion, separation of concerns, information hiding and loose coupling. It also combines elements of FP (Functional Programming) and FRP (Functional Reactive Programming) with mainstream PP (Procedural Programmin) to minimize errors resulting from improper state management and unwanted side effects.
+Mondrian is a framework for building modular server-side applications ready to evolve. It is primarily a <em>conceptual framework</em> that encompasses a set of well-defined abstractions for designing a modern, feature-rich backend application with characteristics such as modularity, cohesion, separation of concerns, information hiding and loose coupling. It also combines elements of FP (Functional Programming) and FRP (Functional Reactive Programming) with mainstream PP (Procedural Programmin) to minimize errors resulting from improper state management and unwanted side effects.
 
-Its current implementation is written in [TypeScript](https://www.typescriptlang.org/) for [Node.js](https://nodejs.org/) ([Deno](https://deno.land/) and [Bun](https://bun.sh/) compatibility is still in progress). While it is fully interoperable with any JavaScript package, it heavily relies on Typescript dynamic typing to leverage its full potential and provide developers with user-friendly constructs.
+Its current implementation is written in [TypeScript](https://www.typescriptlang.org/) for [Node.js](https://nodejs.org/) ([Deno](https://deno.land/) and [Bun](https://bun.sh/) compatibility is still in progress). While it is fully interoperable with any JavaScript package, it heavily relies on TypeScript dynamic typing to leverage its full potential and provide developers with user-friendly constructs.
 
 ## Mission
 
