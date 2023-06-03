@@ -303,7 +303,50 @@ const SearchResult = m.union(
 The `requiredProjection` parameter identifies the necessary [projection](./05-projection.md) for each type of the union in order to have the fields necessary to discriminate one type from another. The `is` functions, on the other hand, implement the logic that defines when a value is of a specific type.
 
 ## Select
+Sometimes it is useful to define a type based on another one, selecting certain fields so as not to have to rewrite them. To do this, a utility function is provided, as shown in the following example:
+```ts showLineNumbers
+const User = m.object({
+  id: m.integer(),
+  name: m.string(),
+  surname: m.string(),
+  email: m.string().optional(),
+})
 
+// highlight-start
+const UserRequired = m.select(
+  User, 
+  {
+    name: true,
+    surname: true
+  },
+)
+// highlight-end
+```
 ## Merge
+In the same way, it can be useful to merge two types and obtain a third type whose fields are the union of the two starting types. Together with the previously described function, this allows for the composition and decomposition of types as desired.
+```ts showLineNumbers
+const User = m.object({
+  id: m.integer(),
+  name: m.string(),
+  surname: m.string(),
+})
+
+const UserRequired = m.select(
+  User, 
+  {
+    name: true,
+    surname: true
+  },
+)
+
+// highlight-start
+const UserRegisterInput = m.merge(
+  UserRequired, 
+  m.object({
+    password: m.string()
+  }),
+)
+// highlight-end
+```
 
 ## Recursion 
