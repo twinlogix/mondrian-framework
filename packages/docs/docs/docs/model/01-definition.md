@@ -350,3 +350,35 @@ const UserRegisterInput = m.merge(
 ```
 
 ## Recursion 
+The framework supports the definition of recursive types and complex circular chains of relationships. To achieve this, it is necessary to define types lazily, which is considered an overall best practice.
+
+The `lazy` definition of a type is simple and involves defining a simple wrapper function, as shown in the following example. 
+
+```ts showLineNumbers
+const String = m.string()
+const LazyString = () => String
+```
+
+Using lazy types allows them to be referred, as functions, in the definition of themselves or other types, without any constraints on the sequentiality of the code writing.
+
+```ts showLineNumbers
+export const User = () =>
+  t.object({
+    id: Id,
+    name: t.string(),
+    // highlight-start
+    parent: t.relation(t.array(User)), // relation to itself
+    posts: t.relation(t.array(Post)), // before Post declaration
+    // highlight-end
+  })
+export type User = t.Infer<typeof User>
+
+export const Post = () =>
+  t.object({
+    id: Id,
+    title: t.string(),
+    content: t.string(),
+    author: t.relation(User),
+  })
+export type Post = t.Infer<typeof Post>
+```
