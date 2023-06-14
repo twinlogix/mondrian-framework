@@ -20,7 +20,7 @@ Each of these can accept different params that can refine their semantics with s
 
 ```ts showLineNumbers
 m.string({ minLength: 5, maxLength: 256, regex: /^[1-9]\d{0,2}$/g })
-m.number({ minimum: 0, maximum: 10000, multiplierOf: 10 })
+m.number({ minimum: 0, maximum: 10000, multipleOf: 10 })
 m.integer({ minimum: 0, maximum: 10 })
 m.datetime({ minimum: new Date(2023, 0, 1), maximum: new Date() })
 m.timestamp({ minimum: new Date(2023, 0, 1), maximum: new Date() })
@@ -266,19 +266,17 @@ Every element of the union must be named in order to support advanced functional
 
 You can also combine complex types like objects or custom types.
 ```ts showLineNumbers
-const BookType = m.enum(['OLD', 'NEW'])
-
 const OldBook = m.object({
   id: m.string(),
   title: m.string(),
-  type: BookType,
+  type: m.literal('OLD'),
   historicalPeriod: m.string(),
 })
 
 const NewBook = m.object({
   id: m.string(),
   title: m.string(),
-  type: BookType,
+  type: m.literal('NEW'),
   publicationDate: m.datetime(),
 })
 
